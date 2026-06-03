@@ -15,6 +15,8 @@ interface LoginResponse {
   standalone: false
 })
 export class LoginComponent {
+  private readonly loginApiUrl = 'https://ivlserver-690996479270.asia-southeast1.run.app/login';
+
   public username = '';
   public password = '';
   public message = '';
@@ -34,7 +36,7 @@ export class LoginComponent {
     }
 
     this.http
-      .post<LoginResponse>('/login', {
+      .post<LoginResponse>(this.loginApiUrl, {
         username: this.username,
         password: this.password
       })
