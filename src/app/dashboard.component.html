@@ -1,0 +1,8 @@
+<main class="dashboard-page">
+  <section class="dashboard-card">
+    <h1>Dashboard</h1>
+    <p class="welcome">{{ message }}</p>
+    <p *ngIf="username">Logged in as <strong>{{ username }}</strong>.</p>
+    <a routerLink="/login">Sign out</a>
+  </section>
+</main>

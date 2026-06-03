@@ -1,0 +1,44 @@
+:host {
+    display: block;
+    min-height: 100dvh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(160deg, #f8fafc 0%, #e2ebf5 100%);
+}
+
+.dashboard-card {
+    width: min(640px, 92vw);
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.6rem;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+}
+
+h1 {
+    margin: 0 0 0.6rem;
+    color: #10253f;
+}
+
+.welcome {
+    font-size: 1.06rem;
+    margin: 0 0 0.4rem;
+    color: #1d3f63;
+}
+
+a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #0b62b2;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
