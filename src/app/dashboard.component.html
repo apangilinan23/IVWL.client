@@ -3,7 +3,6 @@
     <header class="topbar">
       <div>
         <img class="brand-logo" src="/ivory-wood-logo.svg" alt="Ivory Wood logo" />
-        <button type="button" class="sign-out" (click)="signOut()">Sign out</button>
         <p class="welcome"> Andy P.</p>
       </div>
       <div class="account">
@@ -17,7 +16,7 @@
           <span *ngIf="!showProfileImage">{{ profileInitials }}</span>
         </div>
         <p *ngIf="username" class="username">Andy P.</p>
-        <a routerLink="/login">Sign out</a>
+        <button type="button" class="sign-out" (click)="signOut()">Sign out</button>
       </div>
     </header>
 
