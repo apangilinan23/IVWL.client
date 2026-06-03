@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { App } from './app';
 
 describe('App', () => {
@@ -10,7 +11,7 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [App],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, FormsModule]
     }).compileComponents();
   });
 
@@ -28,18 +29,19 @@ describe('App', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should retrieve weather forecasts from the server', () => {
-    const mockForecasts = [
-      { date: '2021-10-01', temperatureC: 20, temperatureF: 68, summary: 'Mild' },
-      { date: '2021-10-02', temperatureC: 25, temperatureF: 77, summary: 'Warm' }
-    ];
+  it('should submit login credentials to the server', () => {
+    component.username = 'demo';
+    component.password = 'pass123';
 
-    component.ngOnInit();
+    component.submitLogin();
 
-    const req = httpMock.expectOne('/weatherforecast');
-    expect(req.request.method).toEqual('GET');
-    req.flush(mockForecasts);
+    const req = httpMock.expectOne('/login');
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual({ username: 'demo', password: 'pass123' });
 
-    expect(component.forecasts).toEqual(mockForecasts);
+    req.flush({ success: true, message: 'Welcome, demo.' });
+
+    expect(component.isError).toBeFalse();
+    expect(component.message).toBe('Welcome, demo.');
   });
-};
+});
