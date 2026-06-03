@@ -1,78 +1,24 @@
-<main class="login-page">
-  <section class="login-card">
-    <div class="sports-row" aria-label="Sports themes">
-      <div class="sport-badge basketball" title="Basketball">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="32" r="24" fill="#E07A2D" stroke="#8C460F" stroke-width="3" />
-          <path d="M8 32H56" stroke="#8C460F" stroke-width="3" />
-          <path d="M32 8V56" stroke="#8C460F" stroke-width="3" />
-          <path d="M15 16C25 24 25 40 15 48" stroke="#8C460F" stroke-width="3" fill="none" />
-          <path d="M49 16C39 24 39 40 49 48" stroke="#8C460F" stroke-width="3" fill="none" />
-        </svg>
-      </div>
+<h1 id="tableLabel">Weather forecast</h1>
 
-      <div class="sport-badge pickleball" title="Pickleball">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="32" r="24" fill="#B6E73E" stroke="#6D910E" stroke-width="3" />
-          <circle cx="25" cy="24" r="2.6" fill="#6D910E" />
-          <circle cx="35" cy="22" r="2.4" fill="#6D910E" />
-          <circle cx="42" cy="28" r="2.2" fill="#6D910E" />
-          <circle cx="26" cy="35" r="2.3" fill="#6D910E" />
-          <circle cx="36" cy="34" r="2.5" fill="#6D910E" />
-          <circle cx="31" cy="42" r="2.4" fill="#6D910E" />
-          <circle cx="43" cy="40" r="2.2" fill="#6D910E" />
-        </svg>
-      </div>
+<p>This component demonstrates fetching data from the server.</p>
 
-      <div class="sport-badge volleyball" title="Volleyball">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="32" r="24" fill="#F7FCFF" stroke="#4F89C6" stroke-width="3" />
-          <path d="M16 22C24 28 40 28 48 22" stroke="#4F89C6" stroke-width="3" fill="none" />
-          <path d="M12 33C22 24 42 24 52 33" stroke="#4F89C6" stroke-width="3" fill="none" />
-          <path d="M18 44C26 37 38 37 46 44" stroke="#4F89C6" stroke-width="3" fill="none" />
-        </svg>
-      </div>
+<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
-      <div class="sport-badge badminton" title="Badminton">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="18" r="7" fill="#F2C14E" stroke="#9A6A19" stroke-width="2.5" />
-          <path d="M27 28L32 48L37 28" fill="#FFFFFF" stroke="#394A5C" stroke-width="2.5" stroke-linejoin="round" />
-          <path d="M32 33V48" stroke="#394A5C" stroke-width="2.2" />
-          <path d="M29.5 37H34.5" stroke="#394A5C" stroke-width="2" />
-          <path d="M28.5 42H35.5" stroke="#394A5C" stroke-width="2" />
-        </svg>
-      </div>
-    </div>
-
-    <img class="brand-logo" src="/ivory-wood-logo.svg" alt="Ivory Wood logo" />
-    <h1>Login</h1>
-
-    <form (ngSubmit)="submitLogin()" #loginForm="ngForm">
-      <label for="username">Username</label>
-      <input
-        id="username"
-        type="text"
-        name="username"
-        [(ngModel)]="username"
-        autocomplete="username"
-        required
-      />
-
-      <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        name="password"
-        [(ngModel)]="password"
-        autocomplete="current-password"
-        required
-      />
-
-      <button type="submit">Sign in</button>
-    </form>
-
-    <p *ngIf="message" [class.error]="isError" [class.success]="!isError">
-      {{ message }}
-    </p>
-  </section>
-</main>
+<table *ngIf="forecasts">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let forecast of forecasts">
+            <td>{{ forecast.date }}</td>
+            <td>{{ forecast.temperatureC }}</td>
+            <td>{{ forecast.temperatureF }}</td>
+            <td>{{ forecast.summary }}</td>
+        </tr>
+    </tbody>
+</table>

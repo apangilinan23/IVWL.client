@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
-interface LoginResponse {
-  success: boolean;
-  message: string;
+interface WeatherForecast {
+  date: string;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
 }
 
 @Component({
@@ -12,35 +14,25 @@ interface LoginResponse {
   standalone: false,
   styleUrl: './app.css'
 })
-export class App {
-  public username = '';
-  public password = '';
-  public message = '';
-  public isError = false;
+export class App implements OnInit {
+  public forecasts: WeatherForecast[] = [];
 
   constructor(private http: HttpClient) {}
 
-  submitLogin(): void {
-    if (!this.username.trim() || !this.password.trim()) {
-      this.isError = true;
-      this.message = 'Please enter both username and password.';
-      return;
-    }
-
-    this.http
-      .post<LoginResponse>('/login', {
-        username: this.username,
-        password: this.password
-      })
-      .subscribe({
-        next: (result) => {
-          this.isError = !result.success;
-          this.message = result.message;
-        },
-        error: (error) => {
-          this.isError = true;
-          this.message = error?.error?.message ?? 'Unable to sign in right now.';
-        }
-      });
+  ngOnInit() {
+    this.getForecasts();
   }
+
+  getForecasts() {
+    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
+      (result) => {
+        this.forecasts = result;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  protected readonly title = signal('ivwl.client');
 }
