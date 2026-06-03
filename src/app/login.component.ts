@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 interface LoginResponse {
   success: boolean;
@@ -21,7 +22,8 @@ export class LoginComponent {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   submitLogin(): void {
@@ -42,6 +44,7 @@ export class LoginComponent {
           this.message = result.message;
 
           if (result.success) {
+            this.authService.login(this.username);
             this.router.navigate(['/dashboard'], {
               state: {
                 username: this.username,

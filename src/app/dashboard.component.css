@@ -105,7 +105,21 @@ h1 {
     font-weight: 600;
 }
 
+.sign-out {
+    border: 0;
+    background: transparent;
+    color: #9b5e2b;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
 .account a:hover {
+    text-decoration: underline;
+}
+
+.sign-out:hover {
     text-decoration: underline;
 }
 

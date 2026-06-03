@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 type DashboardTab = 'overview' | 'schedule' | 'stats' | 'history';
 
@@ -29,7 +31,10 @@ interface HistoryItem {
   standalone: false
 })
 export class DashboardComponent {
-  public username = history.state?.username ?? '';
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  public username = history.state?.username ?? this.authService.getUsername() ?? '';
   public message = history.state?.message ?? 'You are signed in.';
   public activeTab: DashboardTab = 'overview';
   public profileImageUrl = '/assets/ivwpic.jpg';
@@ -84,6 +89,11 @@ export class DashboardComponent {
 
   public onProfileImageError(): void {
     this.showProfileImage = false;
+  }
+
+  public signOut(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   public getStatNumericValue(stat: PlayerStat): number {
