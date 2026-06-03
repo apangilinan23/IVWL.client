@@ -6,39 +6,326 @@
 
 .dashboard-page {
     min-height: 100dvh;
-    display: grid;
-    place-items: center;
-    padding: 1.5rem;
-    background: linear-gradient(160deg, #f8fafc 0%, #e2ebf5 100%);
+    padding: clamp(1rem, 2.5vw, 2rem);
+    background:
+        radial-gradient(circle at 18% 20%, #ffffff70 0, #ffffff00 35%),
+        radial-gradient(circle at 84% 78%, #ffffff70 0, #ffffff00 38%),
+        linear-gradient(180deg, #faf8f6 0%, #f0ece8 100%);
 }
 
-.dashboard-card {
-    width: min(640px, 92vw);
+.dashboard-shell {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    border-radius: 18px;
     background: #ffffff;
-    border-radius: 16px;
-    padding: 1.6rem;
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+    border: 1px solid #e5ddd6;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.11);
+    overflow: hidden;
 }
 
 h1 {
-    margin: 0 0 0.6rem;
-    color: #10253f;
+    margin: 0;
+    color: #302c29;
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
+    letter-spacing: 0.01em;
 }
 
 .welcome {
-    font-size: 1.06rem;
-    margin: 0 0 0.4rem;
-    color: #1d3f63;
+    margin: 0.35rem 0 0;
+    color: #4d4641;
 }
 
-a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #0b62b2;
+.topbar {
+    padding: 1.25rem 1.4rem;
+    background: linear-gradient(180deg, #fffdfa 0%, #f8f3ef 100%);
+    border-bottom: 1px solid #e8dfd7;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.brand-logo {
+    display: block;
+    width: 100%;
+    max-width: 290px;
+    margin: 0 0 0.5rem;
+}
+
+.eyebrow {
+    margin: 0 0 0.35rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: #805f40;
+    font-weight: 800;
+}
+
+.account {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+}
+
+.profile-pic {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    border: 3px solid #d8c7b8;
+    background: linear-gradient(135deg, #f8efe8, #f2e3d7);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-pic span {
+    font-weight: 800;
+    color: #7a5639;
+    font-size: 1.15rem;
+}
+
+.username {
+    margin: 0 0 0.25rem;
+    font-weight: 700;
+    color: #3c342f;
+}
+
+.account a {
+    color: #9b5e2b;
     text-decoration: none;
     font-weight: 600;
 }
 
-a:hover {
+.account a:hover {
     text-decoration: underline;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0.95rem 1.4rem 0;
+}
+
+.tabs button {
+    border: 1px solid #d8c7b8;
+    background: #f8efe8;
+    color: #5d4330;
+    padding: 0.58rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 120ms ease;
+}
+
+.tabs button:hover {
+    filter: brightness(0.98);
+}
+
+.tabs button.active {
+    border-color: #9b5e2b;
+    background: linear-gradient(90deg, #d53a46, #9b5e2b);
+    color: #ffffff;
+}
+
+.panel {
+    padding: 1rem 1.4rem 1.4rem;
+}
+
+.overview-panel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.kpi-card {
+    border-radius: 14px;
+    background: #fffdfb;
+    border: 1px solid #eadfd4;
+    padding: 0.9rem;
+}
+
+.kpi-title {
+    margin: 0;
+    color: #83664c;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.kpi-value {
+    margin: 0.45rem 0 0.1rem;
+    color: #3a2f28;
+    font-size: 1.52rem;
+    font-weight: 800;
+}
+
+.kpi-detail {
+    margin: 0;
+    color: #6f5f52;
+}
+
+.list-panel h2 {
+    margin: 0 0 0.8rem;
+    color: #3a2f28;
+}
+
+.list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid #ede3db;
+}
+
+.list-row h3 {
+    margin: 0 0 0.2rem;
+    font-size: 1rem;
+    color: #3d312b;
+}
+
+.list-row p {
+    margin: 0;
+    color: #6f6156;
+}
+
+.date-chip {
+    min-width: 105px;
+    background: #f9f1ea;
+    border: 1px solid #e4d4c5;
+    border-radius: 10px;
+    padding: 0.4rem 0.55rem;
+    display: grid;
+}
+
+.date-chip strong {
+    color: #5d4330;
+}
+
+.date-chip span {
+    color: #826d5c;
+    font-size: 0.82rem;
+}
+
+.stat .stat-value {
+    font-size: 1.25rem;
+    color: #47382f;
+}
+
+.stats-graph {
+    margin-top: 1rem;
+    padding: 0.9rem;
+    border: 1px solid #eadfd4;
+    border-radius: 12px;
+    background: #fffdfb;
+}
+
+.stats-graph h3 {
+    margin: 0 0 0.75rem;
+    color: #4f3d31;
+    font-size: 0.98rem;
+}
+
+.graph-row {
+    display: grid;
+    grid-template-columns: minmax(130px, 210px) 1fr 60px;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.35rem 0;
+}
+
+.graph-label {
+    color: #5e493a;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.graph-track {
+    height: 10px;
+    background: #f1e7df;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.graph-bar {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #d53a46, #9b5e2b);
+}
+
+.graph-value {
+    color: #5c4738;
+    font-weight: 700;
+    text-align: right;
+}
+
+.up {
+    color: #187a48;
+}
+
+.down {
+    color: #b44a1c;
+}
+
+.flat {
+    color: #6a5d53;
+}
+
+.win,
+.loss {
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    font-weight: 700;
+    font-size: 0.84rem;
+}
+
+.win {
+    background: #e6f7ee;
+    color: #1c7c4e;
+}
+
+.loss {
+    background: #fff0ea;
+    color: #a04724;
+}
+
+@media (max-width: 920px) {
+    .overview-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .account {
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .overview-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .list-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .graph-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+
+    .graph-value {
+        text-align: left;
+    }
 }

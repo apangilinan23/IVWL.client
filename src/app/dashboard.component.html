@@ -1,8 +1,88 @@
 <main class="dashboard-page">
-  <section class="dashboard-card">
-    <h1>Dashboard</h1>
-    <p class="welcome">{{ message }}</p>
-    <p *ngIf="username">Logged in as <strong>{{ username }}</strong>.</p>
-    <a routerLink="/login">Sign out</a>
+  <section class="dashboard-shell">
+    <header class="topbar">
+      <div>
+        <img class="brand-logo" src="/ivory-wood-logo.svg" alt="Ivory Wood logo" />
+        <p class="eyebrow">Athlete Workspace</p>
+        <p class="welcome"> Andy P.</p>
+      </div>
+      <div class="account">
+        <div class="profile-pic" aria-label="Player profile picture">
+          <img
+            *ngIf="showProfileImage"
+            [src]="profileImageUrl"
+            [alt]="(username || 'Player') + ' profile picture'"
+            (error)="onProfileImageError()"
+          />
+          <span *ngIf="!showProfileImage">{{ profileInitials }}</span>
+        </div>
+        <p *ngIf="username" class="username">Andy P.</p>
+        <a routerLink="/login">Sign out</a>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Dashboard sections">
+      <button type="button" [class.active]="isTabActive('overview')" (click)="setTab('overview')">Overview</button>
+      <button type="button" [class.active]="isTabActive('schedule')" (click)="setTab('schedule')">Schedule</button>
+      <button type="button" [class.active]="isTabActive('stats')" (click)="setTab('stats')">Player Stats</button>
+      <button type="button" [class.active]="isTabActive('history')" (click)="setTab('history')">History</button>
+    </nav>
+
+    <section *ngIf="isTabActive('overview')" class="panel overview-panel">
+      <article class="kpi-card" *ngFor="let card of kpiCards">
+        <p class="kpi-title">{{ card.title }}</p>
+        <p class="kpi-value">{{ card.value }}</p>
+        <p class="kpi-detail">{{ card.detail }}</p>
+      </article>
+    </section>
+
+    <section *ngIf="isTabActive('schedule')" class="panel list-panel">
+      <h2>Upcoming Schedule</h2>
+      <article class="list-row" *ngFor="let match of upcomingMatches">
+        <div class="date-chip">
+          <strong>{{ match.date }}</strong>
+          <span>{{ match.time }}</span>
+        </div>
+        <div>
+          <h3>{{ match.event }}</h3>
+          <p>{{ match.location }}</p>
+        </div>
+      </article>
+    </section>
+
+    <section *ngIf="isTabActive('stats')" class="panel list-panel">
+      <h2>Player Statistics</h2>
+      <article class="list-row stat" *ngFor="let stat of playerStats">
+        <div>
+          <h3>{{ stat.label }}</h3>
+          <p [class.up]="stat.trend === 'up'" [class.down]="stat.trend === 'down'" [class.flat]="stat.trend === 'flat'">
+            {{ stat.trend === 'up' ? 'Improving' : stat.trend === 'down' ? 'Needs attention' : 'Stable' }}
+          </p>
+        </div>
+        <strong class="stat-value">{{ stat.value }}</strong>
+      </article>
+
+      <section class="stats-graph" aria-label="Player statistics graph">
+        <h3>Stats Graph</h3>
+        <div class="graph-row" *ngFor="let stat of playerStats">
+          <span class="graph-label">{{ stat.label.split('(')[0].trim() }}</span>
+          <div class="graph-track">
+            <div class="graph-bar" [style.width.%]="getStatBarWidth(stat)"></div>
+          </div>
+          <span class="graph-value">{{ stat.value }}</span>
+        </div>
+      </section>
+    </section>
+
+    <section *ngIf="isTabActive('history')" class="panel list-panel">
+      <h2>Recent Match History</h2>
+      <article class="list-row" *ngFor="let item of history">
+        <div>
+          <h3>{{ item.opponent }}</h3>
+          <p>{{ item.date }} • {{ item.score }}</p>
+        </div>
+        <span [class.win]="item.result === 'Win'" [class.loss]="item.result === 'Loss'">{{ item.result }}</span>
+      </article>
+    </section>
   </section>
 </main>
